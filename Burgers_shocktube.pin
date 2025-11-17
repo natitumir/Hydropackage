@@ -1,0 +1,15 @@
+#Do not write any comment inline. This is a temporary thing. I will later modify
+#the Parameter_Input.cpp to remove this constraint
+
+<Problem PDE type>
+PDE name = Burgers equation
+
+#<Initial Condition>
+
+
+<mesh>
+nx = 100
+x_i = 2
+x_f = 5
+
+
