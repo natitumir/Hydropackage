@@ -34,20 +34,13 @@ class BurgersEquation : public Hydropackage {
                 vector<double> left_value(1,0.0);
                 vector<double> right_value(1,0.0);
                 double  midpoint;
-                cout<<"HII2222"<<endl;
+                
 
-                cout<<pin.Getdouble("initial_condition","left_value");
 
                 left_value[0]=pin.Getdouble("initial_condition","left_value");
-                
-                cout<<pin.Getdouble("initial_condition","left_value");
-                cout<<"HIIIII3333"<<endl;
-
                 right_value[0] = pin.Getdouble("initial_condition","right_value");
                 midpoint = pin.Getdouble("initial_condition","midpoint"); 
 
-                cout<<left_value[0]<<"This is what we are looking for"<<endl;
-                cout<<"Hello world"<<endl;
 
                 grid.step_initial_condition(left_value,right_value,midpoint);
 

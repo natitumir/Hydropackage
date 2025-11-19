@@ -92,21 +92,24 @@ class grid1d {
         //STEP initial condition. 
         void step_initial_condition(vector<double> leftside, vector<double> rightside, double mid){ //Leftside is a vector that has the left
                                                                                           // side values of each variable
-            for(int i=0; i<nvariable; i++){
-                int l;
-                for(int j= nghost; (j-nghost+1)*dx<mid;j++){
+            
+            for (int i = 0; i < nvariable; i++)
+            {
+                for (int j = 0; j < ntotal; j++)
+                {
+                    if (x[j] < mid)
                     q[i][j] = leftside[i];
-                    l=j;
-                }
-                for(int k=l+1; l<=ncell+nghost-1;k++){
-                    q[i][k]=rightside[i];
+                    else
+                    q[i][j] = rightside[i];
                 }
             }
 
-            cout<<"In this place also,leftside value is"<<leftside[0]<<endl;
+            cout << "Leftside=" << leftside[0]  << " sample q[0][5]=" << q[0][5] << endl;
+        }
+
 
             
-        }
+        
         //ADD OTHER INITIAL CONDITION GENERATORS
 
         

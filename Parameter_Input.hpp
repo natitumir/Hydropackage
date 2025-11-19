@@ -72,11 +72,6 @@ class ParameterInput {
             return parameters[block][key];
         }*/
         double Getdouble(std::string block, std::string key) {
-            std::cout<< block <<" "<<key<<std::endl;
-
-            std::cout<< parameters[block][key]<<std::endl;
-
-            std::cout<<parameters["initial_condition"]["left_value"]<<std::endl;
 
             
 

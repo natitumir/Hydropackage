@@ -113,17 +113,18 @@ class Manager {
             grid.get_grid_parameters(xi,xf,ncell,nghost,nvariable);
             
             if(initial_condition_type=="step"){
-                cout<<"HIIII"<<endl;
+                std::cout<<"yeeeeeeees"<<std::endl;
                 hydro->step_initial_condition(grid,pin);
+                (grid.*grid1d::write_ghosts[bc])();
                 
             }
             //FOR NOT STEP, USE OTHER METHODS FROM THE BASE HYDRO CLASS
             
-            (grid.*grid1d::write_ghosts[bc])(); //Up to now the mesh has the variable q filled, including the ghost cells.But they
+             //Up to now the mesh has the variable q filled, including the ghost cells.But they
             //are all in the primitive form. So I need to take an output in the output file and then convert to conserved 
             //before starting the loop.
 
-
+            std::cout<< "Hhhhhhhhhhhhhhhhhh"<<grid.q[0][0]<<std::endl;
 
             for(int i = nghost; i <=ncell+nghost-1; i++) {
                 file << ti<<" "<< grid.x[i] << " ";           // Write x coordinate
