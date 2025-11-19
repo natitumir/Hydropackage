@@ -1,0 +1,54 @@
+#Do not write any comment inline. This is a temporary thing. I will later modify
+#the Parameter_Input.cpp to remove this constraint
+
+#Always use lower case letters when modifying this file. Use _ instead of space.
+
+
+
+
+
+<problem_type>
+name = burgers_equation
+nvariable = 1
+
+
+
+
+<mesh>
+ncell = 100
+xi = -5
+xf = 5
+
+<timeloop>
+ti= 0.0
+tf = 5.0
+
+
+
+#For the types of boundary conditions, I now have only outflow
+
+<boundary_condition>
+type_of_boundary_condition = outflow
+nghost = 2
+
+
+<initial_condition>
+type_of_initial_condition = step
+left_value = 1
+right_value = 2
+
+midpoint = 0
+
+
+
+
+#For reconstruction method I only have: minmod
+
+<method_of_simulation>
+reconstruction_method= minmod
+
+
+
+
+
+

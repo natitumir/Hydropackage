@@ -10,7 +10,7 @@ CXXFLAGS = -Wall  # This variable holds the compiler flags. Wall is for all warn
 TARGET = program  # This variable holds the name of the target executable
 
 SOURCES = main.cpp
-HEADERS = Manager.hpp Parameter_Input.hpp
+HEADERS = Manager.hpp Parameter_Input.hpp Packages.hpp Burgers_Package.hpp Grid1D.hpp
 
 # Notice how variables are used here, with
 #the dollar sign and parantheses.

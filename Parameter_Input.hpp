@@ -13,6 +13,7 @@
 #include<string>
 #include<vector>
 #include<map>
+#include<stdio.h>
 
 class ParameterInput {
     public:
@@ -57,11 +58,52 @@ class ParameterInput {
 
                 
             }
+            printf("left_value equals %s\n",parameters["initial_condition"]["left_value"].c_str());
 
         }
+        /*
         double Getdouble(std::string block, std::string key) {
             return std::stod(parameters[block][key]);   //stod is the function that converts from string to double
         }
+        int Getinteger(std::string block, std::string key) {
+            return std::stoi(parameters[block][key]);     
+        }
+        std::string Getstring(std::string block, std::string key){
+            return parameters[block][key];
+        }*/
+        double Getdouble(std::string block, std::string key) {
+            std::cout<< block <<" "<<key<<std::endl;
+
+            std::cout<< parameters[block][key]<<std::endl;
+
+            std::cout<<parameters["initial_condition"]["left_value"]<<std::endl;
+
+            
+
+
+        std::string value = parameters[block][key];
+        if (value.empty()) {
+        throw std::invalid_argument("Empty value for: " + block + ":" + key);
+         }
+        
+        return std::stod(value);
+}
+
+int Getinteger(std::string block, std::string key) {
+    std::string value = parameters[block][key];
+    if (value.empty()) {
+        throw std::invalid_argument("Empty value for: " + block + ":" + key);
+    }
+    return std::stoi(parameters[block][key]);
+}
+
+std::string Getstring(std::string block, std::string key) {
+    std::string value = parameters[block][key];
+    if (value.empty()) {
+        throw std::invalid_argument("Empty value for: " + block + ":" + key);
+    }
+    return value;
+}
 
 
     private:
