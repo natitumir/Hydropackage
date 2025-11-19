@@ -32,9 +32,10 @@
 
 class Hydropackage {
     public:
+        virtual ~Hydropackage() = default;
          
         virtual void step_initial_condition(grid1d& grid, ParameterInput& pin){} //Used to impose step initial condition. 
-        virtual void convert_to_primitive(grid1d& grid){}// Used to convert to primitive. It will be overridden by individual packages
+        virtual void convert_to_primitive(grid1d& grid){}// Used to convert to pprimitive. It will be overridden by individual packages
         virtual void convert_to_conserved(grid1d& grid){}
         virtual void flux_calculate (grid1d& grid){}
         //==============Helper methods=====================

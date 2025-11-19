@@ -59,7 +59,7 @@ class grid1d {
 
             //Initializing all of the vectors(1d and 2d) with zeros
 
-            x.resize(ncell, 0.0);
+            x.resize(ntotal, 0.0);
             q.resize(nvariable,vector<double>(ntotal,0.0));
             qL.resize(nvariable,vector<double>(ncell+1,0.0));
             qR.resize(nvariable,vector<double>(ncell+1,0.0));
@@ -69,7 +69,7 @@ class grid1d {
 
 
             //cell center positions
-            for(int i=0; i<=ncell; i++){
+            for(int i=0; i<ntotal; i++){
                 x[i]= xi+ (i+0.5)*dx ;
             }
 
@@ -93,13 +93,17 @@ class grid1d {
         void step_initial_condition(vector<double> leftside, vector<double> rightside, double mid){ //Leftside is a vector that has the left
                                                                                           // side values of each variable
             for(int i=0; i<nvariable; i++){
+                int l;
                 for(int j= nghost; (j-nghost+1)*dx<mid;j++){
                     q[i][j] = leftside[i];
+                    l=j;
                 }
-                for(int k=nghost; (k-nghost+1)*dx<mid;k++){
+                for(int k=l+1; l<=ncell+nghost-1;k++){
                     q[i][k]=rightside[i];
                 }
             }
+
+            cout<<"In this place also,leftside value is"<<leftside[0]<<endl;
 
             
         }
@@ -115,7 +119,7 @@ class grid1d {
 
         void outflow_bc(){
             for(int i=0; i<nvariable;i++){
-                for(int j=0;j<nghost;i++){
+                for(int j=0;j<nghost;j++){
                     q[i][j]=q[i][j+nghost];
                 }
                 for(int k=ncell+nghost;k<=(ncell+2*nghost-1);k++){
