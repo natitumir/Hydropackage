@@ -5,6 +5,7 @@
 #include "Parameter_Input.hpp"
 #include "Grid1D.hpp"
 #include "Burgers_Package.hpp"
+#include "Euler_Package.hpp"
 #include "Packages.hpp"
 
 
@@ -19,7 +20,8 @@ class Manager {
         //=============================================================================================
         ParameterInput pin ;
         grid1d grid;
-        BurgersEquation Burger; //Add all the other individual packages as you see the need;
+        BurgersEquation Burger;
+        EulerEquation Euler ;//Add all the other individual packages as you see the need;
         std::string pinfilename;
         std::string problem_type, initial_condition_type, bc, reconstruction_method;
         int ncell, nghost, nvariable;
@@ -84,10 +86,10 @@ class Manager {
                 hydro = std::make_unique<BurgersEquation>();
                 std::cout << "Using Burgers_Package.hpp" << std::endl;
             }
-            //if (problem_type == "euler") {
-            ///    hydro_package = std::make_unique<EulerPackage>();
-             //   std::cout << "Using Euler package" << std::endl;
-            //}
+            if (problem_type == "eulers_equation") {
+                hydro = std::make_unique<EulerEquation>();
+               std::cout << "Using Euler package" << std::endl;
+            }
             
 
             //=================PRINT OUT THE PROBLEM====================
@@ -135,7 +137,7 @@ class Manager {
 
             cout<<"huuuuuuuuu"<<std::endl;
 
-            hydro->convert_to_conserved(grid);
+            
 
 
 
@@ -147,6 +149,28 @@ class Manager {
 
             while(t<tf){
 
+
+
+                
+
+
+                //Now I need to find out the value of dt. For that I need the CFL condition, which says that the time
+                //step must be samller than dx/(max charactersitic velocitiy). Since the characteristic velocities depend on the 
+                //kind of equation we are using, I will make CFL functions on each of the individual equation packages. I will use the
+                //cell center values right after the update to calculate dt through cfl condition. 
+
+                double dt;
+                dt= hydro->cfl(grid);
+
+
+                
+
+
+
+
+
+                hydro->convert_to_conserved(grid); //Back to conservative before the next loop iteration
+
                 //For RK2, I need to hold the values of q at time step n.
                 grid1d temp;
                 temp.get_grid_parameters(xi,xf,ncell,nghost,nvariable);
@@ -156,23 +180,7 @@ class Manager {
                 hydro->flux_calculate(grid);
 
 
-                //Now I need to find out the value of dt. MY GUESS here is that, I have to get the lowest of the following,
-                // 0.3 dx/q_reconstructed //////++++++++++++++++++++++++++++++RIGOROUSLY CHECK
-
-
-                // Create new vector starting with q_reconstructed_L
-                // vector<double> combined(q_reconstructed_L);
-    
-                // Append q_reconstructed_R     . MAKE SURE to explore this technique with more understanding. 
-                //combined.insert(combined.end(), q_reconstructed_R.begin(), q_reconstructed_R.end());
-        
-
-                //double largest_reconstructed_variable = FindLargest(combined);
-
-                //double dt= 0.3*dx/largest_reconstructed_variable;
-
-                //Bypassing all those for the time being, just take 
-                double dt=0.01;
+                
 
                 //Then I update to time step n+1/2
                 for(int j=0;j<nvariable;j++){
@@ -218,7 +226,7 @@ class Manager {
                 }
                 
 
-                hydro->convert_to_conserved(grid); //Back to conservative before the next loop iteration
+                
 
 
 

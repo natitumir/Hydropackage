@@ -103,8 +103,6 @@ class grid1d {
                     q[i][j] = rightside[i];
                 }
             }
-
-            cout << "Leftside=" << leftside[0]  << " sample q[0][5]=" << q[0][5] << endl;
         }
 
 

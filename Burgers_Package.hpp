@@ -1,7 +1,8 @@
 #ifndef BURGERS_PACKAGE_HPP
 #define BURGERS_PACKAGE_HPP
 
-
+#include<cmath>
+#include<vector>
 #include "Grid1D.hpp"
 #include "Packages.hpp"
 #include "Parameter_Input.hpp"
@@ -46,6 +47,19 @@ class BurgersEquation : public Hydropackage {
 
                 
                   //////////////////////////CHECK/////////////
+    }
+
+
+    double cfl(grid1d& grid) override {
+        double dt;
+        vector<double> absolute_q ;
+        absolute_q.resize(grid.ntotal,0.0);
+        for(int i=0;i<grid.ntotal;i++){
+            absolute_q[i] = abs(grid.q[0][i]);    //Just a reminder, in this case there is only one variable.
+        }
+
+        dt= 0.3*grid.dx/( Hydropackage::FindLargest(absolute_q));
+        return dt;
     }
 
 };

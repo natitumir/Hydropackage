@@ -22,6 +22,7 @@ int main(){
     cout<<"This is a program to do a hydro simulation. There are a few options for the files that you can run."<<endl;
     cout<<"The follwoing are the available options.Please write which one you want."<<endl;
     cout<<"1) Burgers_step.pin : This one is for Burgers equation with a step function initial condition "<<endl;
+    cout<<"2) EulerParameter.pin : This one is for Euler equation with a step function initial condition "<<endl;
 
     cin>>which;
 
@@ -30,7 +31,10 @@ int main(){
     if(which == 1) {
         mymanager = Manager("Burgers_step.pin");  // Reassign
     }
-    //More if clauses for other pin files
+    if(which == 2) {
+        mymanager = Manager("EulerParameter.pin");  // Reassign
+    }
+    
 
     mymanager.generate_problem();
     

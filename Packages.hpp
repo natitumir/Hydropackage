@@ -33,11 +33,17 @@
 class Hydropackage {
     public:
         virtual ~Hydropackage() = default;
-         
+        
+        virtual void get_extra_parameters(ParameterInput& pin){} //Some problems might have their own extra parameters.
+        //One such extra parameter is Gamma for Euler equation
         virtual void step_initial_condition(grid1d& grid, ParameterInput& pin){} //Used to impose step initial condition. 
         virtual void convert_to_primitive(grid1d& grid){}// Used to convert to pprimitive. It will be overridden by individual packages
         virtual void convert_to_conserved(grid1d& grid){}
         virtual void flux_calculate (grid1d& grid){}
+        virtual double cfl(grid1d& grid){ return 0.0;}
+
+
+
         //==============Helper methods=====================
 
         //===========Minmod slope limiter=================
@@ -66,6 +72,23 @@ class Hydropackage {
                       ///////////////////////////////////////////////////////////////////////
                     
         }
+
+
+
+
+        //=====================Helper functions================================
+
+        //Function for finding the largest from a set of numbers
+        static double FindLargest(vector<double> a){
+            double largest= a[0];
+            for(double i:a){
+                if(i>largest){
+                    largest=i;
+                }
+            }
+            return largest;
+        }
+
 
         
         
