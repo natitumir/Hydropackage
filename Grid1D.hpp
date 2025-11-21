@@ -133,6 +133,19 @@ class grid1d {
             //ADD REFLECTIVE and PERIODIC
 
         }
+        void reflective_bc(){
+            for(int i=0; i<nvariable;i++){
+                for(int j=0;j<nghost;j++){
+                    q[i][j]=-q[i][j+nghost];
+                }
+                for(int k=ncell+nghost;k<=(ncell+2*nghost-1);k++){
+                     q[i][k]=-q[i][k-nghost];
+                }
+            }
+            
+            //=============BE SURE IF THIS IS REFLECIVE
+
+        }
 
         static map<string, void (grid1d::*)()> write_ghosts; //This is a map with the values being pointers to methods of this class. As a 
         //static member it must be defined outside the class. However, REMEMBER THIS. Each time I add a new boundary condition, I must update
@@ -150,7 +163,7 @@ class grid1d {
 
 map<string, void (grid1d::*) ()>  grid1d::write_ghosts = {
         {"outflow", &grid1d::outflow_bc},
-        {"reflective", &grid1d::outflow_bc},
+        {"reflective", &grid1d::reflective_bc},
         {"periodic", &grid1d::outflow_bc}};   //For now just remember that this is how it is done. Next week you can chat with AI to know more
         //details about this code ====================================================================================
 

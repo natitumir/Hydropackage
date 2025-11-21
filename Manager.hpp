@@ -113,7 +113,6 @@ class Manager {
             grid.get_grid_parameters(xi,xf,ncell,nghost,nvariable);
             
             if(initial_condition_type=="step"){
-                std::cout<<"yeeeeeeees"<<std::endl;
                 hydro->step_initial_condition(grid,pin);
                 (grid.*grid1d::write_ghosts[bc])();
                 
@@ -211,7 +210,7 @@ class Manager {
                 t=t+dt;
                 hydro->convert_to_primitive(grid);
                 for(int i = nghost; i <=ncell+nghost-1; i++) {
-                    file << ti<<" "<< grid.x[i] << " ";           // Write x coordinate
+                    file << t<<" "<< grid.x[i] << " ";           // Write x coordinate
                     for(int j = 0; j<nvariable; j++) {
                         file << grid.q[j][i] << " ";    // Write all variables for this x
                     }

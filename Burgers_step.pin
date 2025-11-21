@@ -16,8 +16,8 @@ nvariable = 1
 
 <mesh>
 ncell = 100
-xi = -5
-xf = 5
+xi = -2
+xf = 2
 
 <timeloop>
 ti= 0.0
@@ -25,10 +25,10 @@ tf = 5.0
 
 
 
-#For the types of boundary conditions, I now have only outflow
+#For the types of boundary conditions, I now have only outflow, reflective
 
 <boundary_condition>
-type_of_boundary_condition = outflow
+type_of_boundary_condition = reflective
 nghost = 2
 
 
@@ -36,7 +36,6 @@ nghost = 2
 type_of_initial_condition = step
 left_value = 1
 right_value = 2
-
 midpoint = 0
 
 
